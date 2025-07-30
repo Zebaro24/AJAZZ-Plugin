@@ -36,7 +36,7 @@ class AudioMixer:
     @require_mixer
     def set_volume(self, volume):
         self.mixer.SetMasterVolume(volume / 100, None)
-        return volume / 100
+        return volume
 
     @require_mixer
     def add_volume(self, amount):

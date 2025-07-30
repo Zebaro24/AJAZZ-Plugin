@@ -2,8 +2,10 @@ from streamdeck_sdk import events_received_objs
 
 from core.base_action import BaseAction
 from core.audio_mixer import AudioMixer
+from core.text_widget import TextWidget
 
 # spotify_cli = SpotifyCli()
+text_widget = TextWidget()
 spotify_mixer = AudioMixer("Spotify.exe")
 discord_mixer = AudioMixer("Discord.exe")
 
@@ -14,7 +16,11 @@ class DiscordAct(BaseAction):
     TOOLTIP = "Tooltip"
 
     def on_dial_rotate(self, obj: events_received_objs.DialRotate):
-        discord_mixer.add_volume(obj.payload.ticks * 2)
+        volume = discord_mixer.add_volume(obj.payload.ticks * 2)
+        if volume is not None:
+            text_widget.show_text(f"Громкость Discord: {volume}%")
+            return
+        text_widget.show_text(f"Приложение Discord не запущено!")
 
     def on_dial_down(self, obj: events_received_objs.SendToPlugin):
         print(obj)
@@ -26,7 +32,11 @@ class SpotifyAct(BaseAction):
     TOOLTIP = "Tooltip"
 
     def on_dial_rotate(self, obj: events_received_objs.DialRotate):
-        spotify_mixer.add_volume(obj.payload.ticks * 2)
+        volume = spotify_mixer.add_volume(obj.payload.ticks * 2)
+        if volume is not None:
+            text_widget.show_text(f"Громкость Spotify: {volume}%")
+            return
+        text_widget.show_text(f"Приложение Spotify не запущено!")
 
     def on_dial_down(self, obj: events_received_objs.SendToPlugin):
         print(obj)
