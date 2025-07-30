@@ -1,0 +1,9 @@
+.cache
+.env
+
+.idea/
+.venv/
+
+tests/
+
+debug.log
