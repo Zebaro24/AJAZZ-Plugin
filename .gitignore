@@ -7,3 +7,7 @@
 tests/
 
 debug.log
+
+logs/
+
+Plugin-Files/
