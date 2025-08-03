@@ -1,4 +1,5 @@
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
+from pycaw.constants import AudioSessionState
 from functools import wraps
 
 
@@ -21,9 +22,11 @@ class AudioMixer:
     def _get_mixer(self):
         sessions = AudioUtilities.GetAllSessions()
         for session in sessions:
-            mixer = session._ctl.QueryInterface(ISimpleAudioVolume)  # noqa
             if session.Process and session.Process.name() == self.target:
-                return mixer
+                state = session._ctl.GetState()
+                if state == AudioSessionState.Active:
+                    mixer = session._ctl.QueryInterface(ISimpleAudioVolume)
+                    return mixer
         return None
 
     def _get_volume(self):
