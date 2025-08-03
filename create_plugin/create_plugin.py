@@ -64,9 +64,11 @@ class CreatePlugin:
     @staticmethod
     def add_action(action):
         plugin.create_action(action_dict_update={
-            "Icon": action.ICON,
+            "Icon": action.IMAGE,
             "Name": action.NAME,
-            "States": [{"Image": ""}],
+            "States": [{
+                "Image": action.IMAGE,
+            }],
             "Controllers": action.CONTROLLERS,
             "Tooltip": action.TOOLTIP,
             "UUID": action().UUID,

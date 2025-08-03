@@ -4,7 +4,7 @@ from streamdeck_sdk import Action
 
 
 class BaseAction(Action):
-    ICON = "images/spotify"
+    IMAGE = "images/spotify"
     NAME = "Name"
     CONTROLLERS = ["Knob"]
     TOOLTIP = "Tooltip"
